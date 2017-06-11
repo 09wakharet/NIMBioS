@@ -8,7 +8,8 @@ SIR.model <- function(t, b, g){ # function of t, b and g
   initI <- 1e-6
   init <- c(S=1-initI,I=initI,R=0) #initial conditions of proportions
   parameters <- c(bet=b,gamm=g) #paramters in the ode
-  time <- seq(0,t,by=t/(4*length(1:t))) #time sequence for the ode solution
+  time <- seq(0,t,by=t/(1*length(1:t))) #time sequence for the ode solution
+  
   eqn <- function(time,state,parameters){ #SIR odes
     with(as.list(c(state,parameters)),{ #solve the ode using the parameters
       dS <- -bet*S*I #change in proportion of susceptibles (dS/dt)
@@ -16,9 +17,11 @@ SIR.model <- function(t, b, g){ # function of t, b and g
       dR <- gamm*I #change in proportion of the recovered (dR/dt)
       return(list(c(dS,dI,dR)))}) #out as a list containing the values
   }
+  
   out<-ode(y=init,times=time,eqn,parms=parameters) #solve the ode using ode() in deSolve package
   out.df<-as.data.frame(out) #create a data frame of the output of ode()
   print(max(out.df$I))
+  
   require(ggplot2) #call in ggplot2 package
   mytheme4 <- theme_bw() + # assign a theme, all NULL values will default to bw-theme
     theme(text=element_text(colour="black")) + #set all text in the plot to white
