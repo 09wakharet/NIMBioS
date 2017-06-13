@@ -97,37 +97,61 @@ plot(mod_3)
 
 
 ####################################################
-#CUSTOM TWO HOST CLOSED SIR MODEL 
+#CUSTOM TWO HOST OPEN SIR MODEL (basis demography)
 ####################################################
 SIRTwo <- function(t, t0, parms) {
   with(as.list(c(t0, parms)), {
     
-    dS <- -bet*s.num*i.num - bet.g21*s.num*i2.num#change in proportion of susceptibles (dS/dt)
-    dI <- bet*s.num*i.num-gam*i.num  + bet.g21*s.num*i2.num#change in proportion of infected (dI/dt)
-    dR <- gam*i.num #change in proportion of the recovered (dR/dt)
+    dS <- -bet*s.num*i.num - bet.g21*s.num*i2.num + alp *(s.num+i.num+r.num) - omeg*s.num
+    dI <- bet*s.num*i.num-gam*i.num  + bet.g21*s.num*i2.num - omeg*i.num - omeg_star *i.num
+    dR <- gam*i.num - omeg* r.num
     
-    dS2 <- -bet.g2*s2.num*i2.num - bet.g12*s2.num*i.num#change in proportion of susceptibles (dS/dt)
-    dI2 <- bet.g2*s2.num*i2.num-gam.g2*i2.num + bet.g12*s2.num*i.num#change in proportion of infected (dI/dt)
-    dR2 <- gam.g2*i2.num #change in proportion of the recovered (dR/dt)
+    dS2 <- -bet.g2*s2.num*i2.num - bet.g12*s2.num*i.num + alp.g2 *(s2.num+i2.num+r.num) - omeg.g2 *s2.num
+    dI2 <- bet.g2*s2.num*i2.num-gam.g2*i2.num + bet.g12*s2.num*i.num - omeg.g2*i2.num - omeg_star.g2 *i2.num
+    dR2 <- gam.g2*i2.num - omeg.g2 * r2.num
     
     # Compartments and flows are part of the derivative vector
     # Other calculations to be output are outside the vector, but within the containing list
-    list(c(dS, dI, dR, dS2, dI2, dR2,
-           si.flow = bet.g21*s.num*i2.num + bet*s.num*i.num,
-           ir.flow = gam*i.num,
-           s2i2.flow = bet.g12*s2.num*i.num + bet.g2*s2.num*i2.num,
-           i2r2.flow = gam.g2*i2.num
-           ))
+    list(c(dS, dI, dR, dS2, dI2, dR2))
   })
 }
 
-param <- param.dcm(bet = 1, bet.g2 = 1.4, bet.g21= .3, bet.g12 = .2, gam = .4, gam.g2 = .7) #balance av. contact rate between g1 and g2)?
-init <- init.dcm(s.num = 2e7*0.02, i.num = 1, r.num = 0,
-                 s2.num = 2e7*0.98, i2.num = 1, r2.num =0,
-                 si.flow =0, ir.flow=0, s2i2.flow=0, i2r2.flow=0
-                 )
-control <- control.dcm(nsteps = 25, dt = 0.02, new.mod = SIRTwo)
+#beta transmission coefficients, gamma recovery, alpha birth, omega death
+param <- param.dcm(bet =  c(1e-8,1e-7,1e-6,5e-6,10e-6), bet.g2 = 1.4e-6, bet.g21= 3e-6, bet.g12 = .2e-6, 
+                   gam = .4, gam.g2 = .7,
+                   omeg = .1, omeg.g2 = .01, 
+                   omeg_star = .01, omeg_star.g2 = .01,
+                   alp = .11, alp.g2 = .02) #balance av. contact rate between g1 and g2)?
+init <- init.dcm(s.num = 1e6, i.num = 1, r.num = 0,
+                 s2.num = 1e3, i2.num = 1, r2.num =0)
+control <- control.dcm(nsteps = 150, dt = 0.02, new.mod = SIRTwo)
 
 mod <- dcm(param, init, control)
-mod
-head(as.data.frame(mod))
+head(as.data.frame(mod)[,1:3])
+
+par(mfrow = c(1, 1))
+#plot(mod, y = c("s.num","s2.num","i.num","i2.num","r.num","r2.num"), main = "Two Host Dynamics", legend = "full")
+plot(mod, y = "i.num", main = "beta 1 senstivity analysis", legend = "full")
+
+
+
+
+
+
+
+#######################
+#EXAMPLE SENSITIVITY ANALYSIS, group 1 r strategists, group 2 k strategists
+#######################
+
+param <- param.dcm(bet = c(1e-8,1e-7,1e-6,5e-6,10e-6), bet.g2 = 1.4e-6, bet.g21= 3e-6, bet.g12 = .2e-6, gam = .04, gam.g2 = .3) #balance av. contact rate between g1 and g2)?
+init <- init.dcm(s.num = 1e6, i.num = 1, r.num = 0,
+                 s2.num = 1e6, i2.num = 1, r2.num =0,
+                 si.flow =0, ir.flow=0, s2i2.flow=0, i2r2.flow=0
+)
+control <- control.dcm(nsteps = 100, dt = 0.2, new.mod = SIRTwo)
+
+mod <- dcm(param, init, control)
+head(as.data.frame(mod)[,1:3])
+
+par(mfrow = c(1, 1))
+plot(mod, y = "i.num", main = "beta 1 senstivity analysis", legend = "full")
