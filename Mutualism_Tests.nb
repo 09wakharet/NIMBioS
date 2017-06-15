@@ -1,0 +1,104 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      2867,         94]
+NotebookOptionsPosition[      2557,         78]
+NotebookOutlinePosition[      2900,         93]
+CellTagsIndexPosition[      2857,         90]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Solve", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "b11"}], " ", "S1", " ", "I1"}], " ", "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"d", "-", "b12"}], ")"}], "S1", " ", "I2"}], " ", "+", 
+       RowBox[{"d", " ", "S1", " ", "S2"}], "+", 
+       RowBox[{"d", " ", "I1", " ", "S2"}], " ", "+", " ", 
+       RowBox[{"d", " ", "I1", " ", "I2"}], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"y1", "-", "w1"}], ")"}], "I1"}], "+", "a1"}], "\[Equal]", 
+      "0"}], ",", "  ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "b22"}], " ", "S2", " ", "I2"}], " ", "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"e", "-", "b21"}], ")"}], "S2", " ", "I1"}], " ", "+", 
+       RowBox[{"e", " ", "S1", " ", "S2"}], "+", 
+       RowBox[{"e", " ", "I2", " ", "S1"}], " ", "+", " ", 
+       RowBox[{"e", " ", "I1", " ", "I2"}], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"y2", "-", "w2"}], ")"}], "I2"}], "+", "a2"}], "\[Equal]", 
+      "0"}], " ", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"b11", " ", "S1", " ", "I1"}], " ", "+", 
+       RowBox[{"b12", " ", "S1", " ", "I2"}], " ", "-", " ", 
+       RowBox[{"(", 
+        RowBox[{"y1", "+", "w1", "+", "w1star"}], ")"}]}], "\[Equal]", "0"}], 
+     " ", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"b22", " ", "S2", " ", "I2"}], " ", "+", 
+       RowBox[{"b21", " ", "S2", " ", "I1"}], " ", "-", " ", 
+       RowBox[{"(", 
+        RowBox[{"y2", "+", "w2", "+", "w2star"}], ")"}]}], "\[Equal]", 
+      "0"}]}], " ", "  ", "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"I1", ",", "I2", ",", " ", "S1", ",", "S2"}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7063701407164373`*^9, 3.706370402336972*^9}}],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.706372500803932*^9}]
+}, Open  ]]
+},
+WindowSize->{759, 601},
+WindowMargins->{{Automatic, 295}, {24, Automatic}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 1881, 50, 88, "Input"],
+Cell[2464, 74, 77, 1, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

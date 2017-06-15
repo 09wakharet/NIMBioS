@@ -117,7 +117,8 @@ SIRTwo <- function(t, t0, parms) {
 }
 
 #beta transmission coefficients, gamma recovery, alpha birth, omega death
-param <- param.dcm(bet =  c(1e-8,1e-7,1e-6,5e-6,10e-6), bet.g2 = 1.4e-6, bet.g21= 3e-6, bet.g12 = .2e-6, 
+param <- param.dcm(bet =  c(1e-8,1e-7,1e-6,5e-6,10e-6), bet.g2 = 1.4e-6, 
+                   bet.g21= 3e-6, bet.g12 = .2e-6, 
                    gam = .4, gam.g2 = .7,
                    omeg = .1, omeg.g2 = .01, 
                    omeg_star = .01, omeg_star.g2 = .01,
